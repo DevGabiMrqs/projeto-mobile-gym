@@ -3,11 +3,10 @@ import BackgroundImg from '@assets/background.png'
 import LogoSvg from '@assets/logo.svg'
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
-import { SignUp } from './SignUp';
 
 
 
-export function SignIn(){
+export function SignUp(){
 
 
     return (
@@ -27,8 +26,12 @@ export function SignIn(){
                 </Center>
                 <Center>
                 <Heading color="gray.100" fontSize="xl" fontFamily="heading" mb={6}>
-                    Acesse sua Conta
+                    Crie sua conta
                 </Heading>
+                <Input 
+                placeholder="Nome" 
+                keyboardType="name-phone-pad"
+                />
                 <Input 
                 placeholder="E-mail" 
                 keyboardType="email-address"
@@ -38,21 +41,18 @@ export function SignIn(){
                 placeholder="Senha"  
                 secureTextEntry
                 />
+                <Input 
+                placeholder="Confirme a senha"  
+                secureTextEntry
+                />
                 <Button  
-                title="Acessar"
+                title="Criar e acessar"
                 variant="solid"
                 />
                 </Center>
                 <Center>
-                <Text 
-                color="gray.100" 
-                mb={4}
-                fontFamily="body"
-                >
-                Ainda não tem acesso?
-                </Text>
                     <Button  
-                    title="Criar Conta"
+                    title="Voltar para o login"
                     variant="outline"
                     />
                 </Center>
