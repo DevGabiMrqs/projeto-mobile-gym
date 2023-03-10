@@ -3,15 +3,20 @@ import BackgroundImg from '@assets/background.png'
 import LogoSvg from '@assets/logo.svg'
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
-
-
+import {AuthNavigatorRoutesProps} from '@routes/auth.routes'
+import { useNavigation} from '@react-navigation/native'
 
 export function SignUp(){
 
+    const backLogin = useNavigation<AuthNavigatorRoutesProps>() 
+
+    function backToLogin() {
+        backLogin.navigate("signIn")
+    }
 
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
-            <VStack flex={1} bg="gray.900" paddingBottom={16}>
+            <VStack flex={1} paddingBottom={16}>
                 <Image 
                 source={BackgroundImg}
                 alt="Pessoas treinando"
@@ -54,6 +59,7 @@ export function SignUp(){
                     <Button  
                     title="Voltar para o login"
                     variant="outline"
+                    onPress={backToLogin}
                     />
                 </Center>
             </VStack>
