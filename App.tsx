@@ -15,7 +15,7 @@ export default function App() {
         backgroundColor='transparent'
         translucent
       />
-      {fontsLoaded ?<Home /> :<Loading />}
+      {fontsLoaded ?<Routes /> :<Loading />}
     </NativeBaseProvider>
   );
 }

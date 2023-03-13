@@ -4,7 +4,7 @@ export function Profile(){
 
     return (
         <Center flex={1}>
-            <Text>Profile</Text>
+            <Text color="gray.100">Profile</Text>
         </Center>
     );
 }
