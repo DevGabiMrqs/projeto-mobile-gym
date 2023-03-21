@@ -12,7 +12,7 @@ import { Profile } from '@screens/Profile'
 import HomeSvg from '@assets/home.svg'
 import HistorySvg from '@assets/history.svg'
 import ProfileSvg from '@assets/profile.svg'
-import { background, border } from 'native-base/lib/typescript/theme/styled-system'
+
 
 
 type AppRoutes = {
@@ -22,7 +22,7 @@ type AppRoutes = {
     profile: undefined;
 }
 
-export type AppNavigatiorRoutesProps = BottomTabNavigationProp<AppRoutes>;
+export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
 
 const { Navigator, Screen} = createBottomTabNavigator<AppRoutes>(); //passo AppRoutes aqui pois em name<Screen<Navigator, ele verifica se a tipagem do name está tipado, se não acusa erro.
 
