@@ -14,6 +14,9 @@ export function SignIn(){
     function handleNewAccount(){
     navigation.navigate("signUp")
 }
+//navigation(a const que informa a rota que está sendo buscada)
+//navigate(e aqui leva a const e executa a função em si do navigate, passa a tela que quer navegar)
+
     return (
         <ScrollView contentContainerStyle={{flexGrow:1}} showsVerticalScrollIndicator={false} >
             <VStack flex={1} px={10} pb={16}>

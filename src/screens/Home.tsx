@@ -1,22 +1,24 @@
-import { HStack, VStack, FlatList, Heading, Text } from 'native-base'
-import { HomeHeader } from '@components/HomeHeader'; 
-import { Group } from '@components/Group';
 import {useState} from 'react';
-import { ExerciseCard } from '@components/ExerciseCard';
 import { useNavigation } from '@react-navigation/native';
+import { HStack, VStack, FlatList, Heading, Text } from 'native-base'
+
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
+
+import { Group } from '@components/Group';
+import { HomeHeader } from '@components/HomeHeader'; 
+import { ExerciseCard } from '@components/ExerciseCard';
 
 
 export function Home() {
-
-    const [groupSelected, setGroupSelected] = useState("");
-    const [exercises, setExercises] = useState(["puxada frontal", "remada lateral", "remada curvada", "terra"]);
+    
     const [groups, setGroups] = useState(["costas", "ombro", "bíceps", "tríceps"]);
+    const [exercises, setExercises] = useState(["puxada frontal", "remada lateral", "remada curvada", "terra"]);
+    const [groupSelected, setGroupSelected] = useState("");
 
-    const navigation = useNavigation<AppNavigatorRoutesProps>();
+    const navigationn = useNavigation<AppNavigatorRoutesProps>();
 
     function handleOpenExerciseDetails() {
-        navigation.navigate("exercise");
+        navigationn.navigate("exercise");
     }
 
     return(
@@ -60,6 +62,7 @@ export function Home() {
             showsVerticalScrollIndicator={false}
             _contentContainerStyle={{paddingBottom: 20}}
             />
+        
             </VStack>
         </VStack>
     );

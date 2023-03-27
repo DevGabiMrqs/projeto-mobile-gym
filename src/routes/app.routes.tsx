@@ -15,6 +15,7 @@ import ProfileSvg from '@assets/profile.svg'
 
 
 
+
 type AppRoutes = {
     home: undefined;
     exercise: undefined;
@@ -22,7 +23,7 @@ type AppRoutes = {
     profile: undefined;
 }
 
-export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
+export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>; // A props AppNavigator eu passo em outras telas para poder fazer a navegação pelo bottom navigator.
 
 const { Navigator, Screen} = createBottomTabNavigator<AppRoutes>(); //passo AppRoutes aqui pois em name<Screen<Navigator, ele verifica se a tipagem do name está tipado, se não acusa erro.
 
