@@ -39,7 +39,8 @@ export function Home() {
             showsVerticalScrollIndicator={false}
             my={9}
             mx={4}
-            maxH={12}
+            maxH={10}
+            minH={10}
             />
             <VStack flex={1} mx={4}>
             <HStack justifyContent="space-between" mb={5}>

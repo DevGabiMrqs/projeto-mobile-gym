@@ -1,6 +1,8 @@
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { Heading, HStack, Image, VStack, Text, Icon } from "native-base";
 import { Entypo } from '@expo/vector-icons'
+import { useNavigation } from "@react-navigation/native";
+import { AppNavigatorRoutesProps } from "@routes/app.routes";
 
 type Props = TouchableOpacityProps & {
 
@@ -8,10 +10,15 @@ type Props = TouchableOpacityProps & {
 
 export function ExerciseCard({...rest}: Props){
 
+    const navigationn = useNavigation<AppNavigatorRoutesProps>();
+
+    function handleOpenExerciseDetails() {
+        navigationn.navigate("exercise");
+    }
 
     return(
         <>
-        <TouchableOpacity >
+        <TouchableOpacity onPress={handleOpenExerciseDetails} >
             <HStack bg="gray.500"  alignItems="center" p={3/2} rounded="md" mb={4} pr={4}>
                 <Image 
                 source={{ uri: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" }}
@@ -19,6 +26,7 @@ export function ExerciseCard({...rest}: Props){
                 w={16}
                 h={16}
                 rounded="md"
+                resizeMode="cover"
             />
             <VStack mr={20} pl={4} justifyContent="center">
                 <Heading color="gray.200" fontSize="md">
