@@ -5,12 +5,48 @@ import { useState } from 'react'
 import { TouchableOpacity } from 'react-native';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
+import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
 
 export function Profile(){
 
     const PHOTO_SIZE = 33;
 
     const [photoIsLoading, setPhotoIsLoading] = useState(false);
+    const [userPhoto, setUserPhoto] = useState('https://github.com/devgabimrqs.png')
+    
+    async function handleUserPhotoSelect() {
+        setPhotoIsLoading
+        try {
+            const photoSelected = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                quality: 1,
+                aspect: [4, 4],
+                allowsEditing: true,
+            });
+
+            if(photoSelected.canceled){
+                return;
+            }    
+            
+            if(photoSelected.assets[0].uri){
+                const photoInfo = await FileSystem.getInfoAsync(photoSelected.assets[0].uri);
+            
+            
+
+                setUserPhoto(photoSelected.assets[0].uri)
+            }
+
+        } // para evitar que a nossa aplicação quebre vamos envolver por um bloco try catch.
+        
+        catch(error) {
+            console.log(error);
+        } finally {
+            setPhotoIsLoading(false)
+        }
+
+    }//acessando o albúm de fotos, selecionando a imagem e aplicando a função de editar.
+    //depois seta a imagem da posição um.
 
     return (
         <VStack flex={1}>
@@ -36,7 +72,7 @@ export function Profile(){
             alt="foto de perfil"
             />}
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleUserPhotoSelect}>
                 <Text color="green.500" fontFamily="body" fontWeight="bold" fontSize="md" mt={2} mb={7}>
                     Alterar foto
                 </Text>
