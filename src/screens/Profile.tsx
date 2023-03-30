@@ -1,12 +1,12 @@
 import { ScreenHeader } from '@components/ScreenHeader';
-import { Center, Text, VStack, Skeleton, ScrollView } from 'native-base'
+import { Center, Text, VStack, Skeleton, ScrollView, useToast, Box } from 'native-base'
 import { UserPhoto } from '@components/UserPhoto';
 import { useState } from 'react'
-import { TouchableOpacity } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
-import * as ImagePicker from 'expo-image-picker';
-import * as FileSystem from 'expo-file-system';
+import * as ImagePicker from 'expo-image-picker'; //você consegue acessar o album de foto e selcionar.
+import * as FileSystem from 'expo-file-system'; //você consegue acessar onde as imagens estão alocadas. 
 
 export function Profile(){
 
@@ -14,9 +14,11 @@ export function Profile(){
 
     const [photoIsLoading, setPhotoIsLoading] = useState(false);
     const [userPhoto, setUserPhoto] = useState('https://github.com/devgabimrqs.png')
+
+    const toast = useToast();
     
     async function handleUserPhotoSelect() {
-        setPhotoIsLoading
+        setPhotoIsLoading(true)
         try {
             const photoSelected = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -32,10 +34,18 @@ export function Profile(){
             if(photoSelected.assets[0].uri){
                 const photoInfo = await FileSystem.getInfoAsync(photoSelected.assets[0].uri);
             
-            
+                
+            if (photoInfo.exists && !photoInfo.isDirectory) {
+                if(photoInfo.size && (photoInfo.size / 1024 / 1024) > 5){
+                    return toast.show({
+                        title: "Essa é imagem é muito grande, escolha uma imagem menor.",
+                        placement: 'top',
+                        bg: "red.500"
+                    })
+                }
 
                 setUserPhoto(photoSelected.assets[0].uri)
-            }
+            }}
 
         } // para evitar que a nossa aplicação quebre vamos envolver por um bloco try catch.
         

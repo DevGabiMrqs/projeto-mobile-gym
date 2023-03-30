@@ -29,6 +29,7 @@ export function Exercise() {
                         Puxada frontal
                     </Heading>
                     <HStack alignItems="center">
+                        <BodySvg />
                         <Text ml={1} textTransform="capitalize" color="gray.200">
                             Costas
                         </Text>
