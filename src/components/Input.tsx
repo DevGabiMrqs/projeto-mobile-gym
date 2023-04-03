@@ -1,12 +1,18 @@
-import { Stack, IInputProps} from 'native-base'
+import { Stack, IInputProps, FormControl} from 'native-base'
 import { Input as NativeBaseInput} from 'native-base'
 
 
-export function Input({...rest} : IInputProps) {
+type Props = IInputProps & {
+    errorMessage?: string | null;
+}
+
+export function Input({ errorMessage = null, isInvalid, ...rest} : Props) {
+
+    const invalid = !!errorMessage || isInvalid; //!!istruthy  ouInválido
 
 
     return (
-        <Stack >
+        <FormControl isInvalid={invalid}>
             <NativeBaseInput 
             maxW={300} 
             mx="auto" 
@@ -17,6 +23,11 @@ export function Input({...rest} : IInputProps) {
             fontFamily="body"
             mb={17}
             h={55}
+            isInvalid={invalid}
+            _invalid={{
+                borderWidth: 1,
+                borderColor: "red.500"
+            }}
             {...rest}
             _focus={{
                 bg:"gray.800",
@@ -24,6 +35,10 @@ export function Input({...rest} : IInputProps) {
                 borderColor:"#00875F"
             }}
         />
-        </Stack>
+        <FormControl.ErrorMessage>
+            {errorMessage}
+        </FormControl.ErrorMessage>
+
+        </FormControl> //através do formControl conseguimos falar se o input é válido ou não
     );
 }

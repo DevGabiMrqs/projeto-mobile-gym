@@ -7,6 +7,7 @@ import { Button } from '@components/Button';
 import {AuthNavigatorRoutesProps} from '@routes/auth.routes'
 import { useNavigation} from '@react-navigation/native'
 import { useForm, Controller } from 'react-hook-form'; //lib para pegar o valor dos inputs, e o Controller vai controlar nosso inputs
+import * as yup from 'yup';
 
 type FormDataProps =  {
     name: string,
@@ -15,10 +16,15 @@ type FormDataProps =  {
     passwordConfirm: string,
 } //passei a tipagem dos dados que estou enviando do formulário.
 
+const signUpSchema = yup.object({
+    name: yup.string().required("Informe o nome"),
+    email: yup.string().required("").email("E-mail inválido"),
+}).required
+
 export function SignUp(){
 
 
-    const {control, handleSubmit } = useForm<FormDataProps>({
+    const {control, handleSubmit, formState: { errors } } = useForm<FormDataProps>({
         defaultValues:{} //
     }); //passamos a props dos dados, aqui onde são enviados pro form.
     //vamos usar o useForm para acessar o control, passamos o mesmo control para 
@@ -60,7 +66,7 @@ export function SignUp(){
                 control={control}  //controla o valor de cada input
                 name="name" // nome do input
                 rules={{
-                    required: "Informe o nome"
+                    required: "Informe o nome."
                 }}
                 render={({ field : { onChange, value } }) => ( // e para cada input controlado eu digo qual input quero renderizar
                     <Input 
@@ -68,6 +74,7 @@ export function SignUp(){
                     keyboardType="name-phone-pad"
                     onChangeText={onChange}
                     value={value} //valor atual do input
+                    errorMessage={errors.name?.message}
                     //onChangeText={setName} porém agora não iremos utilizar estado, mas sim o {field : {e passar onChange aqui para renderizar}} 
                 />   
                 )}  
@@ -76,6 +83,13 @@ export function SignUp(){
                 <Controller 
                 control={control}
                 name="email"
+                rules={{
+                    required: "Informe o email.",
+                    pattern: {
+                        value:/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: 'E-mail inválido'
+                      }
+                }}
                 render={({ field : {onChange, value} }) => (
                     <Input 
                     placeholder="E-mail" 
@@ -83,9 +97,11 @@ export function SignUp(){
                     autoCapitalize="none"
                     onChangeText={onChange}
                     value={value}
+                    errorMessage={errors.email?.message}
                     />  
                 )}
                 />
+               
 
                 <Controller 
                 control={control}
